@@ -1,0 +1,183 @@
+.symptoms-list {
+    display: flex;
+    margin-left: getrem(-2px);
+    margin-right: getrem(-2px);
+    white-space: nowrap;
+    overflow-x: auto;
+
+    @include media-breakpoint-down(md) {
+        margin-left: getvw(-2px);
+        margin-right: getvw(-2px);
+    }
+}
+
+.symptoms-container {
+    margin-left: getrem(2px);
+    margin-right: getrem(2px);
+    position: relative;
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+
+        &:checked {
+            & + label {
+                border-color: $primary;
+                background: $primary;
+                color: $white;
+            }
+        }
+    }
+
+    .btn {
+        min-width: getrem(90px);
+        color: $textcolor;
+        font-weight: 400;
+
+        &:hover,
+        &:focus,
+        &:active {
+            background: $white;
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        margin-left: getvw(2px);
+        margin-right: getvw(2px);
+
+        .btn {
+            min-width: getvw(90px);
+        }
+    }
+}
+
+.place-toggle {
+    label {
+        position: relative;
+    }
+    
+    input[type="checkbox"],
+    input[type="radio"] {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+    }
+
+    .btn {
+        text-align: left;
+        text-decoration: none;
+        padding: 0;
+
+        &:last-child {
+            text-align: right;
+        }
+    }
+}
+
+.custom-form-upload {
+    position: relative;
+
+    textarea {
+        min-height: getrem(160px);
+        padding-bottom: getrem(102px);
+    }
+
+    @include media-breakpoint-down(md) {
+        textarea {
+            min-height: getvw(160px);
+            padding-bottom: getvw(102px);
+        }
+    }
+}
+
+.custom-form-info {
+    position: absolute;
+    bottom: 1px;
+    left: 1px;
+    right: 1px;
+    border-radius: getrem(6px);
+    background-color: $white;
+    padding: getrem(10px) getrem(14px);
+
+    .custom-form-input {
+        position: absolute;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .custom-form-output {
+        width: 100%;
+        margin-bottom: getrem(18px);
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: getrem(4px);
+        position: relative;
+    
+        .image {
+            width: getrem(36px);
+            height: getrem(36px);
+            border-radius: getrem(2px);
+            overflow: hidden;
+            position: relative;
+    
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        padding: getvw(10px) getvw(14px);
+
+        .custom-form-output {
+            margin-bottom: getvw(18px);
+            gap: getvw(4px);
+        
+            .image {
+                width: getvw(36px);
+                height: getvw(36px);
+                border-radius: getvw(2px);
+            }
+        }
+    }
+}
+
+.upload-type-list {
+    margin-left: getrem(-15px);
+    margin-right: getrem(-15px);
+
+    .upload-type-item {
+        position: relative;
+        margin-left: getrem(15px);
+        margin-right: getrem(15px);
+    
+        input[type="checkbox"],
+        input[type="radio"] {
+            opacity: 0;
+            position: absolute;
+            left: 0;
+        }
+    
+        label {
+            cursor: pointer;
+            stroke: $secondary;
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        margin-left: getvw(-15px);
+        margin-right: getvw(-15px);
+
+        .upload-type-item {
+            margin-left: getvw(15px);
+            margin-right: getvw(15px);
+        }
+    }
+}

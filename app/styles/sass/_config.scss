@@ -1,0 +1,227 @@
+// USER VARIABLES SECTION
+
+$fontsize: 12px; // Body Font Size
+$fontsize-md: 14px;
+$fontsize-lg: 16px;
+$fontsize-xl: 16px;
+$lineheight: 1.65; // Document Line Height
+$userfont: 'Nunito Sans', sans-serif; // User Font Family
+$systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif; // System Font Family
+
+$accent: orange; // Accent Color
+$html-bg: #F2F2F4;
+$textcolor: #080B11; // Text Color
+$placeholder-color: #C1C3C6;
+$custom-checkbox-bg: #D7CBF4;
+
+// bootstrap vars overwrite
+$primary: #7E56DA;
+$secondary: #97989B;
+$input-border-color: #E2E4E6;
+
+$input-btn-font-size: 16px;
+$btn-line-height: 24px;
+$btn-font-weight: 600;
+
+$input-btn-padding-y: 7px;
+$input-btn-padding-x: 11px;
+
+$input-btn-padding-y-sm: 7px;
+$input-btn-padding-x-sm: 11px;
+$input-btn-font-size-sm: 16px;
+
+$input-btn-padding-y-lg: 7px;
+$input-btn-padding-x-lg: 11px;
+$input-btn-font-size-lg: 16px;
+
+$btn-border-radius: 8px;
+$btn-border-radius-sm: $btn-border-radius;
+$btn-border-radius-lg: $btn-border-radius;
+
+$input-border-radius: 6px;
+$input-border-radius-sm: $input-border-radius;
+$input-border-radius-lg: $input-border-radius;
+
+$link-color: $secondary;
+$link-hover-color: $textcolor;
+
+// Bootstrap compatible gutter variable => $gutter
+$grid-gutter-width: 30px;
+$gutter: $grid-gutter-width;
+
+// IMPORT SECTION
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+// @import 'node_modules/bootstrap/scss/bootstrap-reboot.scss'; // Bootstrap Reboot collection
+// @import 'node_modules/bootstrap/scss/mixins/_breakpoints.scss'; // Bootstrap Breakpoints mixin
+// @import 'node_modules/bootstrap/scss/bootstrap-grid.scss'; // Optional Bootstrap Grid
+// @import 'node_modules/bootstrap/scss/_utilities.scss'; // Optional Bootstrap Utilites
+
+// Mixins
+@mixin font($fname, $fstyle, $fweight, $furl) {
+    @font-face {
+        font-family: $fname;
+        font-style: $fstyle;
+        font-weight: $fweight;
+        font-display: swap;
+        src: url($furl) format('woff2')
+    }
+}
+
+// Functions
+@function strip-unit($number) {
+    @if type-of($number)=='number'and not unitless($number) {
+        @return math.div($number, $number * 0 + 1);
+    }
+
+    @warn '#{ $number } is in wrong format';
+    @return $number;
+}
+
+@function getrem($size: 1px, $rem: $fontsize-xl) {
+    @if($size=='auto') {
+        @return $size;
+    }
+
+    @return math.div($size, $rem) * 1rem;
+}
+
+@function getvw($xs-size, $w-max: 375px) {
+    @if($xs-size=='auto') {
+        @return $xs-size;
+    }
+
+    $xs-size: strip-unit($xs-size);
+    $w-max: strip-unit($w-max);
+    @return math.div($xs-size * 100vw, $w-max);
+}
+
+// GENERAL CSS SETTINGS
+
+::placeholder {
+    color: $placeholder-color;
+    opacity: 1;
+}
+
+::selection {
+    background-color: $accent;
+	color: $white;
+}
+
+input, textarea {
+    outline: none;
+    &:focus:required:invalid {
+        border-color: red;
+    }
+	&:required:valid {
+        border-color: green;
+    }
+}
+
+body {
+    font-family: $userfont;
+	font-size: $fontsize;
+	line-height: $lineheight;
+	color: $textcolor;
+	min-width: 320px;
+	position: relative;
+	overflow-x: hidden;
+    scroll-behavior: smooth;
+    min-height: 100vh;
+    background-color: $html-bg;
+    padding: getrem(24px) 0;
+
+    @include media-breakpoint-down(md) {
+        padding: getvw(24px) 0;
+    }
+}
+
+h5,
+.h5 {
+    font-weight: 700;
+    font-size: getrem(20px);
+    letter-spacing: normal;
+    line-height: math.div(28, 20) * 1;
+}
+
+h6,
+.h6 {
+    font-weight: 600;
+    font-size: getrem(16px);
+    letter-spacing: normal;
+    line-height: math.div(24, 16) * 1;
+}
+
+@include media-breakpoint-down(md) {
+    h5,
+    .h5 {
+        font-size: getvw(20px);
+    }
+
+    h6,
+    .h6 {
+        font-size: getvw(16px);
+    }
+}
+
+.card {
+    background: $white;
+    border: none;
+    border-radius: getrem(8px);
+    padding: getrem(24px) getrem(16px);
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+        content: '';
+        width: getrem(103px);
+        height: getrem(4px);
+        background-color: $primary;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    @include media-breakpoint-down(md) {
+        padding: getvw(24px) getvw(16px);
+
+        &:before {
+            width: getvw(103px);
+            height: getvw(4px);
+        }
+    }
+}
+
+.form-switch {
+    font-size: getrem(16px);
+    padding-left: getrem(50px);
+
+    .form-check-input {
+        width: getrem(36px);
+        height: getrem(20px);
+        margin-top: getrem(3px);
+        margin-left: getrem(-50px);
+        background-color: $custom-checkbox-bg;
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='4' fill='rgba(255, 255, 255, 1)'/%3E%3C/svg%3E");
+        border-color: $custom-checkbox-bg;
+        border-radius: getrem(30px);
+
+        &:checked {
+            background-color: $primary;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='4' fill='rgba(255, 255, 255, 1)'/%3E%3C/svg%3E");
+            border-color: $primary;
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        font-size: getvw(16px);
+        padding-left: getvw(50px);
+
+        .form-check-input {
+            width: getvw(36px);
+            height: getvw(20px);
+            margin-top: getvw(3px);
+            margin-left: getvw(-50px);
+            border-radius: getvw(30px);
+        }
+    }
+}
